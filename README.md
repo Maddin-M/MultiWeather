@@ -1,14 +1,14 @@
-MultiWeather ![](https://tokei.rs/b1/github/Maddin-M/MultiWeather?category=code) ![](https://img.shields.io/bstats/servers/11077) ![](https://img.shields.io/spiget/downloads/90642)
+MultiWeather ![](https://tokei.rs/b1/github/Maddin-M/MultiWeather?category=code) ![](https://img.shields.io/bstats/servers/11077) ![](https://img.shields.io/spiget/downloads/91452)
 =================
 
 Minecraft Server plugin for world specific weather utilities
 
-A simple Plugin to set, get, lock and unlock weather per world. Because when using Multiverse, the default `/time` command affects all worlds.
+A simple Plugin to set, get, lock and unlock weather per world.
 
 Download
 ---
 
-[Download latest release here](https://www.spigotmc.org/resources/multitime.90642/)
+[Download latest release here](https://www.spigotmc.org/resources/multiweather.91452/)
 
 Usage
 ---

@@ -11,7 +11,7 @@ public class Constants {
 
     public static final String COMMAND = "weather";
     public static final int BSTATS_PLUGIN_ID = 11077;
-    public static final int SPIGOT_PLUGIN_ID = 12345;
+    public static final int SPIGOT_PLUGIN_ID = 91452;
     public static final String SPIGOT_API_LINK = "https://api.spigotmc.org/legacy/update.php?resource=";
 
     /**
