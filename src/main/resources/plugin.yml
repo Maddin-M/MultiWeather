@@ -1,0 +1,20 @@
+main: de.maddin.multiweather.MultiWeather
+version: 1.0.0
+name: MultiWeather
+prefix: MultiWeather
+api-version: 1.16
+authors: [Maddin]
+description: World specific weather utilities
+
+commands:
+  weather:
+    description: Display/Change the world weather. Defaults to current world.
+    permission: multiweather.admin
+    permission-message: §cYou do not have permissions to use MultiWeather!
+    usage: §b/<command> help
+
+permissions:
+  multiweather:
+    admin:
+      description: Grants all permissions
+      default: op
