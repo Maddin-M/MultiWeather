@@ -21,7 +21,7 @@ Usage
 `/weather unlock {world/all}`
 
 - The world parameter is always optional and defaults to the world the player is currently in.
-- Locked worlds will still be affected by `/weather` commands
+- Locked worlds will **not** be affected by `/weather` commands
 
 Permissions
 ---
