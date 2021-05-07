@@ -1,3 +1,4 @@
+![](https://raw.githubusercontent.com/Maddin-M/MultiWeather/master/icon.png)
 MultiWeather ![](https://tokei.rs/b1/github/Maddin-M/MultiWeather?category=code) ![](https://img.shields.io/bstats/servers/11077) ![](https://img.shields.io/spiget/downloads/91452)
 =================
 
@@ -32,4 +33,5 @@ Other
 ---
 
 - Tested on [PaperMC](https://papermc.io/downloads)
+- Compatible with [Java 11+](https://adoptopenjdk.net/)
 - [bStats](https://bstats.org/plugin/bukkit/MultiWeather/11077)

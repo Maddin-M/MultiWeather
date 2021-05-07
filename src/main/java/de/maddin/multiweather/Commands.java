@@ -1,29 +1,29 @@
 package de.maddin.multiweather;
 
-import de.maddin.multiweather.commands.Clear;
 import de.maddin.multiweather.commands.Command;
-import de.maddin.multiweather.commands.Get;
-import de.maddin.multiweather.commands.Help;
-import de.maddin.multiweather.commands.Lock;
-import de.maddin.multiweather.commands.Rain;
-import de.maddin.multiweather.commands.Thunder;
-import de.maddin.multiweather.commands.Unlock;
+import de.maddin.multiweather.commands.CommandClear;
+import de.maddin.multiweather.commands.CommandGet;
+import de.maddin.multiweather.commands.CommandHelp;
+import de.maddin.multiweather.commands.CommandLock;
+import de.maddin.multiweather.commands.CommandRain;
+import de.maddin.multiweather.commands.CommandThunder;
+import de.maddin.multiweather.commands.CommandUnlock;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import static de.maddin.multiweather.Utils.colorString;
+import static de.maddin.multiweather.utils.StringUtils.getMessage;
 
 /**
  * Enum containing all command executors.
  */
 public enum Commands {
-    GET(new Get()),
-    CLEAR(new Clear()),
-    RAIN(new Rain()),
-    THUNDER(new Thunder()),
-    LOCK(new Lock()),
-    UNLOCK(new Unlock()),
-    HELP(new Help());
+    GET(new CommandGet()),
+    CLEAR(new CommandClear()),
+    RAIN(new CommandRain()),
+    THUNDER(new CommandThunder()),
+    LOCK(new CommandLock()),
+    UNLOCK(new CommandUnlock()),
+    HELP(new CommandHelp());
 
     private final Command executor;
 
@@ -37,7 +37,7 @@ public enum Commands {
                 return cmd.run(sender, args);
             }
         }
-        sender.sendMessage(colorString("&cCommand '" + args[0] + "' doesn't exist."));
+        sender.sendMessage(getMessage("error_invalid_command", args[0]));
         return false;
     }
 
@@ -47,5 +47,9 @@ public enum Commands {
 
     public String getHelp() {
         return executor.getHelp();
+    }
+
+    public String getCommand() {
+        return name().toLowerCase();
     }
 }

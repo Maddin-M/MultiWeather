@@ -1,36 +1,36 @@
 plugins {
-    id 'java'
-    id 'checkstyle'
-    id 'com.github.johnrengelman.shadow' version '6.1.0'
-    id 'name.remal.sonarlint' version '1.3.1'
-    id 'com.github.spotbugs' version '4.7.0'
+    id "java"
+    id "checkstyle"
+    id "com.github.johnrengelman.shadow"
+    id "name.remal.sonarlint"
+    id "com.github.spotbugs"
 }
 
-group 'de.maddin.multiweather'
-version '1.0.0'
+group "de.maddin.multiweather"
+version "1.1.0"
 
 repositories {
     mavenCentral()
     maven {
-        url 'https://papermc.io/repo/repository/maven-public/'
+        url "https://papermc.io/repo/repository/maven-public/"
     }
 }
 
 dependencies {
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-    implementation 'org.bstats:bstats-bukkit:2.2.1'
+    compileOnly "com.destroystokyo.paper:paper-api:$paperVersion"
+    implementation "org.bstats:bstats-bukkit:$bstatsVersion"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 
-    testImplementation 'org.mockito:mockito-core:3.8.0'
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 }
 
 shadowJar {
-    dependsOn 'test', 'check'
-    archiveClassifier.set('')
-    relocate 'org.bstats', 'de.maddin.multiweather'
+    dependsOn "test", "check"
+    archiveClassifier.set("")
+    relocate "org.bstats", "de.maddin.multiweather"
 }
 
 test {
@@ -42,6 +42,6 @@ configurations {
 }
 
 checkstyle {
-    toolVersion '7.8.1'
+    toolVersion "$checkstyleVersion"
     configFile file("config/checkstyle/checkstyle.xml")
 }

@@ -1,6 +1,6 @@
 package commands;
 
-import de.maddin.multiweather.commands.Get;
+import de.maddin.multiweather.commands.CommandGet;
 import org.bukkit.GameRule;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -11,8 +11,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
-import static java.lang.String.format;
-import static main.TestUtils.TEST_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -21,22 +19,22 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class GetTest {
+class CommandGetTest {
 
-    private Get getTest;
+    private CommandGet commandGetTest;
     private Player playerMock;
     private World worldMock;
     private Server serverMock;
 
     @BeforeEach
     public void setup() {
-        getTest = new Get();
+        commandGetTest = new CommandGet();
         playerMock = mock(Player.class);
         worldMock = mock(World.class);
         serverMock = mock(Server.class);
         when(playerMock.getServer()).thenReturn(serverMock);
         when(playerMock.getWorld()).thenReturn(worldMock);
-        when(worldMock.getName()).thenReturn(TEST_NAME);
+        when(worldMock.getName()).thenReturn("test_world");
         when(worldMock.isClearWeather()).thenReturn(true);
         when(serverMock.getWorlds()).thenReturn(List.of(worldMock, worldMock));
     }
@@ -45,15 +43,14 @@ class GetTest {
     void no_parameter_should_get_current_world_weather() {
 
         String[] args = new String[]{"get"};
-        boolean result = getTest.run(playerMock, args);
+        boolean result = commandGetTest.run(playerMock, args);
         assertThat(result).isTrue();
 
         verify(playerMock).getWorld();
         verify(worldMock).getName();
         verify(worldMock).isClearWeather();
         verify(worldMock).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
-        verify(playerMock).sendMessage(format("The weather in \u00A7b%s\u00A7f is \u00A7b%s\u00A7f.",
-                TEST_NAME, "clear"));
+        verify(playerMock).sendMessage("The weather in \u00A7btest_world \u00A7fis \u00A7bclear\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
@@ -62,7 +59,7 @@ class GetTest {
 
         String[] args = new String[]{"get"};
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(false);
-        boolean result = getTest.run(playerMock, args);
+        boolean result = commandGetTest.run(playerMock, args);
         assertThat(result).isTrue();
 
         verify(playerMock).getWorld();
@@ -70,26 +67,25 @@ class GetTest {
         verify(worldMock).getName();
         verify(worldMock).isClearWeather();
         verify(worldMock).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
-        verify(playerMock).sendMessage(format("The weather in \u00A7b%s\u00A7f is \u00A7b%s\u00A7f. " +
-                        "\u00A7eWeather is locked in this world.", TEST_NAME, "clear"));
+        verify(playerMock).sendMessage("The weather in \u00A7btest_world \u00A7fis \u00A7bclear\u00A7f. " +
+                "\u00A7eWeather is locked in this world.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
     @Test
     void world_parameter_should_get_its_weather() {
 
-        String[] args = new String[]{"get", TEST_NAME};
-        when(serverMock.getWorld(TEST_NAME)).thenReturn(worldMock);
-        boolean result = getTest.run(playerMock, args);
+        String[] args = new String[]{"get", "test_world"};
+        when(serverMock.getWorld("test_world")).thenReturn(worldMock);
+        boolean result = commandGetTest.run(playerMock, args);
         assertThat(result).isTrue();
 
         verify(playerMock).getServer();
-        verify(serverMock).getWorld(TEST_NAME);
+        verify(serverMock).getWorld("test_world");
         verify(worldMock).getName();
         verify(worldMock).isClearWeather();
         verify(worldMock).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
-        verify(playerMock).sendMessage(format("The weather in \u00A7b%s\u00A7f is \u00A7b%s\u00A7f.",
-                TEST_NAME, "clear"));
+        verify(playerMock).sendMessage("The weather in \u00A7btest_world \u00A7fis \u00A7bclear\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
@@ -97,12 +93,12 @@ class GetTest {
     void invalid_world_parameter_should_print_error() {
 
         String[] args = new String[]{"get", "gami"};
-        boolean result = getTest.run(playerMock, args);
+        boolean result = commandGetTest.run(playerMock, args);
         assertThat(result).isFalse();
 
         verify(playerMock).getServer();
         verify(serverMock).getWorld("gami");
-        verify(playerMock).sendMessage(format("\u00A7cWorld '%s' doesn't exist!", "gami"));
+        verify(playerMock).sendMessage("\u00A7cWorld \u00A74gami \u00A7cdoesn't exist.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
@@ -110,7 +106,7 @@ class GetTest {
     void all_parameter_should_get_all_worlds() {
 
         String[] args = new String[]{"get", "all"};
-        boolean result = getTest.run(playerMock, args);
+        boolean result = commandGetTest.run(playerMock, args);
         assertThat(result).isTrue();
 
         verify(playerMock).getServer();
@@ -119,7 +115,7 @@ class GetTest {
         verify(worldMock, times(2)).getName();
         verify(worldMock, times(2)).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
         verify(playerMock, times(2)).sendMessage(
-                format("The weather in \u00A7b%s\u00A7f is \u00A7b%s\u00A7f.", TEST_NAME, "clear"));
+                "The weather in \u00A7btest_world \u00A7fis \u00A7bclear\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 }

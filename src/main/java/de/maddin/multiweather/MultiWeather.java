@@ -1,10 +1,7 @@
 package de.maddin.multiweather;
 
 import org.bstats.bukkit.Metrics;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import static de.maddin.multiweather.Constants.BSTATS_PLUGIN_ID;
 
@@ -14,7 +11,6 @@ import static de.maddin.multiweather.Constants.BSTATS_PLUGIN_ID;
  */
 public class MultiWeather extends JavaPlugin {
 
-    private CommandManager commandManager;
     private boolean updateAvailable = false;
 
     @Override
@@ -22,18 +18,12 @@ public class MultiWeather extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
-        commandManager = new CommandManager(this);
-        commandManager.setup();
+        new CommandManager(this);
+        new TabCompleteManager(this);
 
         new Metrics(this, BSTATS_PLUGIN_ID);
         new UpdateChecker(this).checkForUpdate();
         getServer().getPluginManager().registerEvents(new LoginListener(this), this);
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
-                             @NotNull String label, @NotNull String[] args) {
-        return commandManager.onCommand(sender, command, label, args);
     }
 
     public boolean isUpdateAvailable() {

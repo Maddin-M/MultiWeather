@@ -1,7 +1,7 @@
 package commands;
 
 import de.maddin.multiweather.Commands;
-import de.maddin.multiweather.commands.Help;
+import de.maddin.multiweather.commands.CommandHelp;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,14 +15,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class HelpTest {
+class CommandHelpTest {
 
-    private Help helpTest;
+    private CommandHelp commandHelpTest;
     private Player playerMock;
 
     @BeforeEach
     public void setup() {
-        helpTest = new Help();
+        commandHelpTest = new CommandHelp();
         playerMock = mock(Player.class);
     }
 
@@ -31,7 +31,7 @@ class HelpTest {
 
         String[] args = new String[]{"help"};
 
-        boolean result = helpTest.run(playerMock, args);
+        boolean result = commandHelpTest.run(playerMock, args);
         assertThat(result).isTrue();
 
         // -1 because help itself doesn't provide a help message

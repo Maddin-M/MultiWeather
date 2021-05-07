@@ -1,2 +1,9 @@
-rootProject.name = 'MultiWeather'
+pluginManagement {
+    plugins {
+        id "com.github.johnrengelman.shadow" version "$shadowVersion"
+        id "name.remal.sonarlint" version "$sonarlintVersion"
+        id "com.github.spotbugs" version "$spotbugsVersion"
+    }
+}
 
+rootProject.name = "MultiWeather"

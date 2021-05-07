@@ -4,12 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommand;
 import org.jetbrains.annotations.NotNull;
 
 import static de.maddin.multiweather.Constants.COMMAND;
-import static de.maddin.multiweather.Utils.getVersion;
-import static java.lang.String.format;
+import static de.maddin.multiweather.utils.StringUtils.getMessage;
 
 /**
  * This class sends the command with its args to the correct executor class.
@@ -20,15 +18,7 @@ public class CommandManager implements CommandExecutor {
 
     public CommandManager(MultiWeather plugin) {
         this.plugin = plugin;
-    }
-
-    public void setup() {
-        PluginCommand pluginCommand = plugin.getCommand(COMMAND);
-        if (pluginCommand != null) {
-            pluginCommand.setExecutor(this);
-        } else {
-            Bukkit.getLogger().info("PluginCommand is null");
-        }
+        setup();
     }
 
     @Override
@@ -38,12 +28,20 @@ public class CommandManager implements CommandExecutor {
         if (command.getName().equalsIgnoreCase(COMMAND)) {
 
             if (args.length == 0) {
-                sender.sendMessage(format("%s %s", plugin.getName(), getVersion(plugin)));
+                sender.sendMessage(plugin.getName() + " " + plugin.getDescription().getVersion());
                 return false;
             }
-
             return Commands.execute(sender, args);
         }
         return false;
+    }
+
+    private void setup() {
+        var pluginCommand = plugin.getCommand(COMMAND);
+        if (pluginCommand != null) {
+            pluginCommand.setExecutor(this);
+        } else {
+            Bukkit.getLogger().warning(getMessage("console_command_null"));
+        }
     }
 }
