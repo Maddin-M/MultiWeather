@@ -27,7 +27,7 @@ class CommandHelpTest {
     }
 
     @Test
-    void should_display_help() {
+    void shouldDisplayHelp() {
 
         String[] args = new String[]{"help"};
 

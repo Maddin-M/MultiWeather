@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class CommandHelp implements Command {
 
     @Override
-    public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
+    public boolean run(@NotNull final CommandSender sender, @NotNull final String[] args) {
 
         for (Commands cmd : Commands.values()) {
             String helpMessage = cmd.getHelp();

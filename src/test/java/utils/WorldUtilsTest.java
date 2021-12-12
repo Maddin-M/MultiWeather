@@ -38,7 +38,7 @@ class WorldUtilsTest {
     }
 
     @Test
-    void valid_sender_should_return_its_world() {
+    void validSenderShouldReturnItsWorld() {
 
         Player playerMock = mock(Player.class);
         when(playerMock.getWorld()).thenReturn(worldMocks.get(0));
@@ -50,7 +50,7 @@ class WorldUtilsTest {
     }
 
     @Test
-    void invalid_sender_should_return_null() {
+    void invalidSenderShouldReturnNull() {
 
         ConsoleCommandSender consoleMock = mock(ConsoleCommandSender.class);
         World result = WorldUtils.getWorldOfSender(consoleMock);
@@ -58,7 +58,7 @@ class WorldUtilsTest {
     }
 
     @Test
-    void all_world_should_be_returned() {
+    void allWorldShouldBeReturned() {
 
         List<World> result = WorldUtils.getAllWorlds(senderMock);
 
@@ -70,15 +70,15 @@ class WorldUtilsTest {
     }
 
     @Test
-    void empty_arg_should_return_every_possible_command() {
+    void emptyArgShouldReturnEveryPossibleCommand() {
 
         List<String> result = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "");
-        assertThat(result.size()).isEqualTo(worldMocks.size());
-        assertThat(result.containsAll(List.of("mo", "mo_nether", "lobby"))).isTrue();
+        assertThat(result.size()).isEqualTo(worldMocks.size() + 1); // "all" is also displayed
+        assertThat(result.containsAll(List.of("all", "mo", "mo_nether", "lobby"))).isTrue();
     }
 
     @Test
-    void partial_arg_should_return_possible_commands() {
+    void partialArgShouldReturnPossibleCommands() {
 
         List<String> result1 = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "m");
         List<String> result2 = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "LOb");
@@ -89,9 +89,10 @@ class WorldUtilsTest {
     }
 
     @Test
-    void full_arg_should_return_its_command() {
+    void fullArgShouldReturnItsCommand() {
 
-        List<String> result = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "MO_nether");
+        List<String> result = WorldUtils.getAllWorldsAsStringsStartingWith(
+                senderMock, "MO_nether");
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.contains("mo_nether")).isTrue();
     }

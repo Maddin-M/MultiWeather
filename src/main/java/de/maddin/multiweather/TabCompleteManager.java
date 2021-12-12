@@ -15,20 +15,21 @@ import static de.maddin.multiweather.utils.StringUtils.getMessage;
 import static de.maddin.multiweather.utils.WorldUtils.getAllWorldsAsStringsStartingWith;
 
 /**
- * This class handles showing available commands while writing them, making it easier to use the plugin.
+ * This class handles showing available commands while writing them,
+ * making it easier to use the plugin.
  */
 public class TabCompleteManager implements TabCompleter {
 
-    private final MultiWeather plugin;
-
-    public TabCompleteManager(MultiWeather plugin) {
-        this.plugin = plugin;
+    public TabCompleteManager() {
         setup();
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
-                                                @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(
+            @NotNull final CommandSender sender,
+            @NotNull final Command command,
+            @NotNull final String alias,
+            @NotNull final String[] args) {
 
         if (args.length == 1) {
             return getAllCommandsAsStringsStartingWith(args[0]);
@@ -45,7 +46,7 @@ public class TabCompleteManager implements TabCompleter {
     }
 
     private void setup() {
-        var pluginCommand = plugin.getCommand(COMMAND);
+        var pluginCommand = MultiWeather.getInstance().getCommand(COMMAND);
         if (pluginCommand != null) {
             pluginCommand.setTabCompleter(this);
         } else {

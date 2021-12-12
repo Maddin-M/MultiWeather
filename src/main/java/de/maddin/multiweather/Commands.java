@@ -27,13 +27,16 @@ public enum Commands {
 
     private final Command executor;
 
-    Commands(Command executor) {
+    Commands(final Command executor) {
         this.executor = executor;
     }
 
-    public static boolean execute(@NotNull CommandSender sender, @NotNull String[] args) {
+    public static boolean execute(
+            @NotNull final CommandSender sender,
+            @NotNull final String[] args) {
+
         for (Commands cmd : Commands.values()) {
-            if (cmd.name().equalsIgnoreCase(args[0])) {
+            if (cmd.getCommand().equals(args[0].toLowerCase())) {
                 return cmd.run(sender, args);
             }
         }
@@ -41,7 +44,8 @@ public enum Commands {
         return false;
     }
 
-    public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
+    public boolean run(@NotNull final CommandSender sender,
+                       @NotNull final String[] args) {
         return executor.run(sender, args);
     }
 

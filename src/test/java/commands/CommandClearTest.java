@@ -41,7 +41,7 @@ class CommandClearTest {
     }
 
     @Test
-    void no_parameter_should_clear_current_world_weather() {
+    void noParameterShouldClearCurrentWorldWeather() {
 
         String[] args = new String[]{"clear"};
         boolean result = commandClearTest.run(playerMock, args);
@@ -53,12 +53,13 @@ class CommandClearTest {
         ArgumentCaptor<Integer> weatherLengthCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(worldMock).setClearWeatherDuration(weatherLengthCaptor.capture());
         assertThat(weatherLengthCaptor.getValue()).isBetween(12000, 180000);
-        verify(playerMock).sendMessage("Set weather in \u00A7btest_world \u00A7fto \u00A7bclear\u00A7f.");
+        verify(playerMock).sendMessage(
+                "Set weather in \u00A7btest_world \u00A7fto \u00A7bclear\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
     @Test
-    void world_parameter_should_clear_its_weather() {
+    void worldParameterShouldClearItsWeather() {
 
         String[] args = new String[]{"clear", "test_world"};
         when(serverMock.getWorld("test_world")).thenReturn(worldMock);
@@ -72,12 +73,13 @@ class CommandClearTest {
         ArgumentCaptor<Integer> weatherLengthCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(worldMock).setClearWeatherDuration(weatherLengthCaptor.capture());
         assertThat(weatherLengthCaptor.getValue()).isBetween(12000, 180000);
-        verify(playerMock).sendMessage("Set weather in \u00A7btest_world \u00A7fto \u00A7bclear\u00A7f.");
+        verify(playerMock).sendMessage(
+                "Set weather in \u00A7btest_world \u00A7fto \u00A7bclear\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
     @Test
-    void invalid_world_parameter_should_print_error() {
+    void invalidWorldParameterShouldPrintError() {
 
         String[] args = new String[]{"clear", "fransk hotdog"};
         boolean result = commandClearTest.run(playerMock, args);
@@ -90,7 +92,7 @@ class CommandClearTest {
     }
 
     @Test
-    void all_parameter_should_clear_all_worlds() {
+    void allParameterShouldClearAllWorlds() {
 
         String[] args = new String[]{"clear", "all"};
         boolean result = commandClearTest.run(playerMock, args);
@@ -107,7 +109,7 @@ class CommandClearTest {
     }
 
     @Test
-    void locked_world_should_display_error() {
+    void lockedWorldShouldDisplayError() {
         String[] args = new String[]{"clear"};
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(false);
         boolean result = commandClearTest.run(playerMock, args);
@@ -115,7 +117,9 @@ class CommandClearTest {
 
         verify(playerMock).getWorld();
         verify(worldMock).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
-        verify(playerMock).sendMessage("\u00A7cCan't change the weather if it's locked.");
+        verify(worldMock).getName();
+        verify(playerMock).sendMessage(
+                "\u00A7cCan't change the weather in \u00A74test_world \u00A7cif it's locked.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 }

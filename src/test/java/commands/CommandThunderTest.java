@@ -41,7 +41,7 @@ class CommandThunderTest {
     }
 
     @Test
-    void no_parameter_should_set_thunder_in_current_world() {
+    void noParameterShouldSetThunderInCurrentWorld() {
 
         String[] args = new String[]{"thunder"};
         boolean result = commandThunderTest.run(playerMock, args);
@@ -55,12 +55,13 @@ class CommandThunderTest {
         verify(worldMock).setThundering(true);
         verify(worldMock).setWeatherDuration(weatherLengthCaptor.capture());
         assertThat(weatherLengthCaptor.getValue()).isBetween(12000, 24000);
-        verify(playerMock).sendMessage("Set weather in \u00A7btest_world \u00A7fto \u00A7bthunder\u00A7f.");
+        verify(playerMock).sendMessage(
+                "Set weather in \u00A7btest_world \u00A7fto \u00A7bthunder\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
     @Test
-    void world_parameter_should_set_thunder_in_its_weather() {
+    void worldParameterShouldSetThunderInItsWeather() {
 
         String[] args = new String[]{"thunder", "test_world"};
         when(serverMock.getWorld("test_world")).thenReturn(worldMock);
@@ -76,12 +77,13 @@ class CommandThunderTest {
         verify(worldMock).setThundering(true);
         verify(worldMock).setWeatherDuration(weatherLengthCaptor.capture());
         assertThat(weatherLengthCaptor.getValue()).isBetween(12000, 24000);
-        verify(playerMock).sendMessage("Set weather in \u00A7btest_world \u00A7fto \u00A7bthunder\u00A7f.");
+        verify(playerMock).sendMessage(
+                "Set weather in \u00A7btest_world \u00A7fto \u00A7bthunder\u00A7f.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
     @Test
-    void invalid_world_parameter_should_print_error() {
+    void invalidWorldParameterShouldPrintError() {
 
         String[] args = new String[]{"thunder", "faxe kondi"};
         boolean result = commandThunderTest.run(playerMock, args);
@@ -94,7 +96,7 @@ class CommandThunderTest {
     }
 
     @Test
-    void all_parameter_should_set_thunder_in_all_worlds() {
+    void allParameterShouldSetThunderInAllWorlds() {
 
         String[] args = new String[]{"thunder", "all"};
         boolean result = commandThunderTest.run(playerMock, args);
@@ -113,7 +115,7 @@ class CommandThunderTest {
     }
 
     @Test
-    void locked_world_should_display_error() {
+    void lockedWorldShouldDisplayError() {
         String[] args = new String[]{"clear"};
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(false);
         boolean result = commandThunderTest.run(playerMock, args);
@@ -121,7 +123,9 @@ class CommandThunderTest {
 
         verify(playerMock).getWorld();
         verify(worldMock).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
-        verify(playerMock).sendMessage("\u00A7cCan't change the weather if it's locked.");
+        verify(worldMock).getName();
+        verify(playerMock).sendMessage(
+                "\u00A7cCan't change the weather in \u00A74test_world \u00A7cif it's locked.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 }

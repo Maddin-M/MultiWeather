@@ -9,19 +9,12 @@ import static de.maddin.multiweather.utils.StringUtils.getMessage;
 /**
  * Listens to users logging in, if update is available. Notifies OPs in chat to update the plugin.
  */
-public class LoginListener implements Listener {
+public record LoginListener() implements Listener {
 
-    private final MultiWeather plugin;
-
-    public LoginListener(MultiWeather plugin) {
-        this.plugin = plugin;
-    }
-
-    @SuppressWarnings("java:S1874")
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(final PlayerJoinEvent event) {
         var player = event.getPlayer();
-        if (plugin.isUpdateAvailable() && player.isOp()) {
+        if (MultiWeather.getInstance().isUpdateAvailable() && player.isOp()) {
             player.sendMessage(getMessage("msg_op_update_available"));
         }
     }

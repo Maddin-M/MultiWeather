@@ -20,7 +20,7 @@ import static de.maddin.multiweather.utils.WorldUtils.getWorldOfSender;
 public class CommandLock implements Command {
 
     @Override
-    public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
+    public boolean run(@NotNull final CommandSender sender, @NotNull final String[] args) {
         if (args.length >= 3) {
             sender.sendMessage(getMessage("error_too_many_parameters"));
             return false;

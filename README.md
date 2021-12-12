@@ -33,5 +33,5 @@ Other
 ---
 
 - Tested on [PaperMC](https://papermc.io/downloads)
-- Compatible with [Java 11+](https://adoptopenjdk.net/)
+- Compatible with [Java 17](https://adoptium.net/)
 - [bStats](https://bstats.org/plugin/bukkit/MultiWeather/11077)

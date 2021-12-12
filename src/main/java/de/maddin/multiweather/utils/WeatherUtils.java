@@ -6,12 +6,12 @@ import org.bukkit.World;
 /**
  * This utils class handles all time related tasks.
  */
-public class WeatherUtils {
+public final class WeatherUtils {
 
     private WeatherUtils() {
     }
 
-    public static String getCurrentWeather(World world) {
+    public static String getCurrentWeather(final World world) {
         if (world.isClearWeather()) {
             return "clear";
         }
@@ -21,7 +21,7 @@ public class WeatherUtils {
         return "rain";
     }
 
-    public static boolean isWeatherLockedInWorld(World world) {
+    public static boolean isWeatherLockedInWorld(final World world) {
         return Boolean.FALSE.equals(world.getGameRuleValue(GameRule.DO_WEATHER_CYCLE));
     }
 }

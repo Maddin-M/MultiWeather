@@ -39,7 +39,7 @@ class CommandLockTest {
     }
 
     @Test
-    void no_parameter_should_unlock_current_world() {
+    void noParameterShouldUnlockCurrentWorld() {
 
         String[] args = new String[]{"lock"};
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(true);
@@ -56,7 +56,7 @@ class CommandLockTest {
     }
 
     @Test
-    void valid_parameter_should_unlock_its_world() {
+    void validParameterShouldUnlockItsWorld() {
 
         String[] args = new String[]{"lock", "test_world"};
         when(serverMock.getWorld("test_world")).thenReturn(worldMock);
@@ -75,7 +75,7 @@ class CommandLockTest {
     }
 
     @Test
-    void invalid_world_should_return_error_message() {
+    void invalidWorldShouldReturnErrorMessage() {
 
         String[] args = new String[]{"lock", "test_world"};
         when(serverMock.getWorld("test_world")).thenReturn(null);
@@ -90,7 +90,7 @@ class CommandLockTest {
     }
 
     @Test
-    void already_unlocked_world_should_return_info_message() {
+    void alreadyUnlockedWorldShouldReturnInfoMessage() {
 
         String[] args = new String[]{"lock", "test_world"};
         when(serverMock.getWorld("test_world")).thenReturn(worldMock);
@@ -103,12 +103,13 @@ class CommandLockTest {
         verify(serverMock).getWorld("test_world");
         verify(worldMock).getGameRuleValue(GameRule.DO_WEATHER_CYCLE);
         verify(worldMock).getName();
-        verify(playerMock).sendMessage("Weather in world \u00A7btest_world \u00A7fis already locked.");
+        verify(playerMock).sendMessage(
+                "Weather in world \u00A7btest_world \u00A7fis already locked.");
         verifyNoMoreInteractions(playerMock, worldMock, serverMock);
     }
 
     @Test
-    void all_parameter_should_unlock_all_worlds() {
+    void allParameterShouldUnlockAllWorlds() {
 
         String[] args = new String[]{"lock", "all"};
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(true);

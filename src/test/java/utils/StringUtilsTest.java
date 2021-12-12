@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 class StringUtilsTest {
 
     @Test
-    void locked_world_should_return_locked_message() {
+    void lockedWorldShouldReturnLockedMessage() {
 
         World worldMock = mock(World.class);
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(false);
@@ -26,7 +26,7 @@ class StringUtilsTest {
     }
 
     @Test
-    void unlocked_world_should_not_return_locked_message() {
+    void unlockedWorldShouldNotReturnLockedMessage() {
 
         World worldMock = mock(World.class);
         when(worldMock.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(true);
@@ -37,7 +37,7 @@ class StringUtilsTest {
     }
 
     @Test
-    void null_world_should_not_return_locked_message() {
+    void nullWorldShouldNotReturnLockedMessage() {
 
         World worldMock = mock(World.class);
         when(worldMock.getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE)).thenReturn(null);
@@ -48,16 +48,17 @@ class StringUtilsTest {
     }
 
     @Test
-    void empty_arg_should_return_every_possible_command() {
+    void emptyArgShouldReturnEveryPossibleCommand() {
 
         List<String> result = StringUtils.getAllCommandsAsStringsStartingWith("");
 
         assertThat(result.size()).isEqualTo(Commands.values().length);
-        assertThat(result.containsAll(List.of("clear", "get", "help", "lock", "rain", "thunder", "unlock"))).isTrue();
+        assertThat(result.containsAll(List.of(
+                "clear", "get", "help", "lock", "rain", "thunder", "unlock"))).isTrue();
     }
 
     @Test
-    void partial_arg_should_return_possible_commands() {
+    void partialArgShouldReturnPossibleCommands() {
 
         List<String> result1 = StringUtils.getAllCommandsAsStringsStartingWith("g");
         List<String> result2 = StringUtils.getAllCommandsAsStringsStartingWith("uNl");
@@ -69,7 +70,7 @@ class StringUtilsTest {
     }
 
     @Test
-    void full_arg_should_return_its_command() {
+    void fullArgShouldReturnItsCommand() {
 
         List<String> result = StringUtils.getAllCommandsAsStringsStartingWith("Get");
 
@@ -78,7 +79,7 @@ class StringUtilsTest {
     }
 
     @Test
-    void correct_string_should_return_its_message() {
+    void correctStringShouldReturnItsMessage() {
 
         String result1 = StringUtils.getMessage("weather_get_locked");
         String result2 = StringUtils.getMessage("error_invalid_world", "test_world");

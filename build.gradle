@@ -1,47 +1,53 @@
 plugins {
     id "java"
     id "checkstyle"
-    id "com.github.johnrengelman.shadow"
-    id "name.remal.sonarlint"
-    id "com.github.spotbugs"
+    id "com.github.johnrengelman.shadow" version "$shadowVersion"
+    id "com.github.spotbugs" version "$spotbugsVersion"
+    id "name.remal.sonarlint" version "$sonarlintVersion"
 }
 
 group "de.maddin.multiweather"
-version "1.1.0"
+version "1.2.0"
 
 repositories {
     mavenCentral()
     maven {
-        url "https://papermc.io/repo/repository/maven-public/"
+        url = uri("https://papermc.io/repo/repository/maven-public/")
     }
 }
 
 dependencies {
-    compileOnly "com.destroystokyo.paper:paper-api:$paperVersion"
+    compileOnly "io.papermc.paper:paper-api:$paperVersion"
     implementation "org.bstats:bstats-bukkit:$bstatsVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 shadowJar {
     dependsOn "test", "check"
     archiveClassifier.set("")
     relocate "org.bstats", "de.maddin.multiweather"
+    minimize()
 }
 
 test {
     useJUnitPlatform()
 }
 
-configurations {
-    testImplementation.extendsFrom compileOnly
+checkstyle {
+    toolVersion "$checkstyleVersion" // https://checkstyle.sourceforge.io/
+    configFile file("config/checkstyle/checkstyle.xml")
 }
 
-checkstyle {
-    toolVersion "$checkstyleVersion"
-    configFile file("config/checkstyle/checkstyle.xml")
+configurations {
+    testImplementation.extendsFrom compileOnly
 }

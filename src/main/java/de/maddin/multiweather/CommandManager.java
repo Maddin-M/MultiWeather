@@ -14,21 +14,19 @@ import static de.maddin.multiweather.utils.StringUtils.getMessage;
  */
 public class CommandManager implements CommandExecutor {
 
-    private final MultiWeather plugin;
-
-    public CommandManager(MultiWeather plugin) {
-        this.plugin = plugin;
+    public CommandManager() {
         setup();
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
-                             @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull final CommandSender sender,
+                             @NotNull final Command command,
+                             @NotNull final String label,
+                             @NotNull final String[] args) {
 
         if (command.getName().equalsIgnoreCase(COMMAND)) {
 
             if (args.length == 0) {
-                sender.sendMessage(plugin.getName() + " " + plugin.getDescription().getVersion());
                 return false;
             }
             return Commands.execute(sender, args);
@@ -37,7 +35,7 @@ public class CommandManager implements CommandExecutor {
     }
 
     private void setup() {
-        var pluginCommand = plugin.getCommand(COMMAND);
+        var pluginCommand = MultiWeather.getInstance().getCommand(COMMAND);
         if (pluginCommand != null) {
             pluginCommand.setExecutor(this);
         } else {

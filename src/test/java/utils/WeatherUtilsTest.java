@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 class WeatherUtilsTest {
 
     @Test
-    void should_return_correct_weather_state() {
+    void shouldReturnCorrectWeatherState() {
 
         World clearWorld = mock(World.class);
         when(clearWorld.isClearWeather()).thenReturn(true);
@@ -36,7 +36,7 @@ class WeatherUtilsTest {
     }
 
     @Test
-    void should_return_correct_time_game_rule() {
+    void shouldReturnCorrectTimeGameRule() {
 
         World lockedWorld = mock(World.class);
         when(lockedWorld.getGameRuleValue(GameRule.DO_WEATHER_CYCLE)).thenReturn(false);

@@ -20,7 +20,7 @@ import static de.maddin.multiweather.utils.WorldUtils.getWorldOfSender;
 public class CommandRain implements Command {
 
     @Override
-    public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
+    public boolean run(@NotNull final CommandSender sender, @NotNull final String[] args) {
         if (args.length >= 3) {
             sender.sendMessage(getMessage("error_too_many_parameters"));
             return false;
@@ -47,7 +47,7 @@ public class CommandRain implements Command {
 
         affectedWorlds.forEach(world -> {
             if (isWeatherLockedInWorld(world)) {
-                sender.sendMessage(getMessage("error_weather_is_locked"));
+                sender.sendMessage(getMessage("error_weather_is_locked", world.getName()));
             } else {
                 world.setStorm(true);
                 world.setThundering(false);

@@ -15,32 +15,28 @@ import static de.maddin.multiweather.utils.StringUtils.getMessage;
 /**
  * This class checks for updates once the plugin is started.
  */
-public class UpdateChecker {
-
-    private final MultiWeather plugin;
-
-    public UpdateChecker(MultiWeather plugin) {
-        this.plugin = plugin;
-    }
+public record UpdateChecker() {
 
     public void checkForUpdate() {
         getVersion(version -> {
-            if (!plugin.getDescription().getVersion().equalsIgnoreCase(version)) {
+            if (!MultiWeather.getInstance().getDescription()
+                    .getVersion().equalsIgnoreCase(version)) {
                 Bukkit.getLogger().warning(getMessage("console_update_available"));
-                plugin.setUpdateAvailable(true);
+                MultiWeather.getInstance().setUpdateAvailable(true);
             }
         });
     }
 
     public void getVersion(final Consumer<String> consumer) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(MultiWeather.getInstance(), () -> {
             try (var inputStream = new URL(SPIGOT_API_LINK + SPIGOT_PLUGIN_ID).openStream();
                  var scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
                 if (scanner.hasNext()) {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                plugin.getLogger().warning(getMessage("console_update_fetch_error", exception.getMessage()));
+                Bukkit.getLogger().warning(getMessage(
+                        "console_update_fetch_error", exception.getMessage()));
             }
         });
     }

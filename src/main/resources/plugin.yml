@@ -1,8 +1,8 @@
 main: de.maddin.multiweather.MultiWeather
-version: 1.1.0
+version: 1.2.0
 name: MultiWeather
 prefix: MultiWeather
-api-version: 1.16
+api-version: 1.18
 authors: [ Maddin ]
 description: World specific weather utilities
 

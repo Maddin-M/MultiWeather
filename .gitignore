@@ -1,6 +1,4 @@
 /.gradle
 /.idea
 /build
-/config
-build-jar.sh
-build-jar-stacktrace.sh
+*.sh

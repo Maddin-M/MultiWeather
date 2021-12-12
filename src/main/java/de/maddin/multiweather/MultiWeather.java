@@ -18,19 +18,24 @@ public class MultiWeather extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
-        new CommandManager(this);
-        new TabCompleteManager(this);
+        new CommandManager();
+        new TabCompleteManager();
 
         new Metrics(this, BSTATS_PLUGIN_ID);
-        new UpdateChecker(this).checkForUpdate();
-        getServer().getPluginManager().registerEvents(new LoginListener(this), this);
+        new UpdateChecker().checkForUpdate();
+
+        getServer().getPluginManager().registerEvents(new LoginListener(), this);
+    }
+
+    public static MultiWeather getInstance() {
+        return getPlugin(MultiWeather.class);
     }
 
     public boolean isUpdateAvailable() {
         return updateAvailable;
     }
 
-    public void setUpdateAvailable(boolean updateAvailable) {
+    public void setUpdateAvailable(final boolean updateAvailable) {
         this.updateAvailable = updateAvailable;
     }
 }
