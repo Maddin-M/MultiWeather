@@ -62,8 +62,9 @@ class WorldUtilsTest {
 
         List<World> result = WorldUtils.getAllWorlds(senderMock);
 
-        assertThat(result).isNotEmpty();
-        assertThat(result.size()).isEqualTo(3);
+        assertThat(result)
+                .isNotEmpty()
+                .hasSize(3);
         assertThat(result.get(0).getName()).isEqualTo("mo");
         assertThat(result.get(1).getName()).isEqualTo("mo_nether");
         assertThat(result.get(2).getName()).isEqualTo("lobby");
@@ -73,8 +74,9 @@ class WorldUtilsTest {
     void emptyArgShouldReturnEveryPossibleCommand() {
 
         List<String> result = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "");
-        assertThat(result.size()).isEqualTo(worldMocks.size() + 1); // "all" is also displayed
-        assertThat(result.containsAll(List.of("all", "mo", "mo_nether", "lobby"))).isTrue();
+        assertThat(result)
+                .hasSize(worldMocks.size() + 1) // "all" is also displayed
+                .containsAll(List.of("all", "mo", "mo_nether", "lobby"));
     }
 
     @Test
@@ -82,10 +84,12 @@ class WorldUtilsTest {
 
         List<String> result1 = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "m");
         List<String> result2 = WorldUtils.getAllWorldsAsStringsStartingWith(senderMock, "LOb");
-        assertThat(result1.size()).isEqualTo(2);
-        assertThat(result2.size()).isEqualTo(1);
-        assertThat(result1.containsAll(List.of("mo", "mo_nether"))).isTrue();
-        assertThat(result2.contains("lobby")).isTrue();
+        assertThat(result1)
+                .hasSize(2)
+                .containsAll(List.of("mo", "mo_nether"));
+        assertThat(result2)
+                .hasSize(1)
+                .contains("lobby");
     }
 
     @Test
@@ -93,7 +97,8 @@ class WorldUtilsTest {
 
         List<String> result = WorldUtils.getAllWorldsAsStringsStartingWith(
                 senderMock, "MO_nether");
-        assertThat(result.size()).isEqualTo(1);
-        assertThat(result.contains("mo_nether")).isTrue();
+        assertThat(result)
+                .hasSize(1)
+                .contains("mo_nether");
     }
 }

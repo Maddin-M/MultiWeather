@@ -52,9 +52,10 @@ class StringUtilsTest {
 
         List<String> result = StringUtils.getAllCommandsAsStringsStartingWith("");
 
-        assertThat(result.size()).isEqualTo(Commands.values().length);
-        assertThat(result.containsAll(List.of(
-                "clear", "get", "help", "lock", "rain", "thunder", "unlock"))).isTrue();
+        assertThat(result)
+                .hasSize(Commands.values().length)
+                .containsAll(List.of(
+                        "clear", "get", "help", "lock", "rain", "thunder", "unlock"));
     }
 
     @Test
@@ -63,10 +64,12 @@ class StringUtilsTest {
         List<String> result1 = StringUtils.getAllCommandsAsStringsStartingWith("g");
         List<String> result2 = StringUtils.getAllCommandsAsStringsStartingWith("uNl");
 
-        assertThat(result1.size()).isEqualTo(1);
-        assertThat(result2.size()).isEqualTo(1);
-        assertThat(result1.contains("get")).isTrue();
-        assertThat(result2.contains("unlock")).isTrue();
+        assertThat(result1)
+                .hasSize(1)
+                .contains("get");
+        assertThat(result2)
+                .hasSize(1)
+                .contains("unlock");
     }
 
     @Test
@@ -74,8 +77,9 @@ class StringUtilsTest {
 
         List<String> result = StringUtils.getAllCommandsAsStringsStartingWith("Get");
 
-        assertThat(result.size()).isEqualTo(1);
-        assertThat(result.contains("get")).isTrue();
+        assertThat(result)
+                .hasSize(1)
+                .contains("get");
     }
 
     @Test
