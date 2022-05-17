@@ -7,7 +7,7 @@ plugins {
 }
 
 group "de.maddin.multiweather"
-version "1.2.1"
+version "1.2.2"
 
 repositories {
     mavenCentral()
@@ -35,7 +35,7 @@ java {
 shadowJar {
     dependsOn "test", "check"
     archiveClassifier.set("")
-    relocate "org.bstats", "de.maddin.multitime"
+    relocate "org.bstats", "de.maddin.multiweather"
     minimize()
 }
 
